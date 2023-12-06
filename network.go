@@ -106,19 +106,19 @@ func handleClient(conn net.Conn) {
     }
 }
 
-func main() {
-	if len(os.Args) < 4 {
-		fmt.Println("Usage:", os.Args[0], "<server_port> <peer_ip> <peer_port>")
-		os.Exit(1)
-	}
+// func main() {
+// 	if len(os.Args) < 4 {
+// 		fmt.Println("Usage:", os.Args[0], "<server_port> <peer_ip> <peer_port>")
+// 		os.Exit(1)
+// 	}
 
-	serverPort := os.Args[1]
-	peerIP := os.Args[2]
-	peerPort := os.Args[3]
+// 	serverPort := os.Args[1]
+// 	peerIP := os.Args[2]
+// 	peerPort := os.Args[3]
 
-	go startServer(serverPort)
-	go connectToPeer(peerIP, peerPort)
+// 	go startServer(serverPort)
+// 	go connectToPeer(peerIP, peerPort)
 
-	// Wait indefinitely
-	select {}
-}
+// 	// Wait indefinitely
+// 	select {}
+// }
