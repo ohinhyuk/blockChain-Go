@@ -12,7 +12,7 @@ var (
 	maxNonce = math.MaxInt64
 )
 
-const targetBits = 24
+const targetBits = 16
 
 // ProofOfWork represents a proof-of-work
 type ProofOfWork struct {
@@ -51,23 +51,23 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 	var hash [32]byte
 	nonce := 0
 
-	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
-	for nonce < maxNonce {
+
+	for nonce < maxNonce { 					// nonce 값이 maxNonce 보다 작을 때까지 반복
 		data := pow.prepareData(nonce)
 
-		hash = sha256.Sum256(data)
-		fmt.Printf("\r%x", hash)
-		hashInt.SetBytes(hash[:])
+		hash = sha256.Sum256(data) 			// 해시값 계산
+		fmt.Printf("\r%x", hash) 
+		hashInt.SetBytes(hash[:]) 
 
-		if hashInt.Cmp(pow.target) == -1 {
-			break
+		if hashInt.Cmp(pow.target) == -1 { 	// 조건을 만족하는 해시값 찾음
+			fmt.Print("\n\n")
+			return nonce, hash[:] 
 		} else {
-			nonce++
+			nonce++ 						// nonce 값 증가
 		}
 	}
 	fmt.Print("\n\n")
-
-	return nonce, hash[:]
+	return -1, nil // 채굴 실패
 }
 
 // Validate validates block's PoW
